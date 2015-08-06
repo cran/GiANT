@@ -1,0 +1,68 @@
+import(parallel)
+
+importFrom("graphics", "hist", "plot", "lines", "abline", "legend", "par")
+importFrom("grDevices", "dev.interactive")
+importFrom("methods", "getFunction")
+importFrom("stats", "p.adjust.methods", "runif", "p.adjust", "cor", "coefficients", "lm", "t.test", "fisher.test", "median", "wilcox.test", "sd", "quantile")
+importFrom("utils", "combn")
+
+S3method(print, gsAnalysis)
+S3method(hist, gsaResult)
+S3method(plot, uncertaintyResult)
+S3method(summary, gsaResult)
+
+export(
+geneSetAnalysis,
+
+gsAnalysis,
+analysis.gsea,
+analysis.averageCorrelation,
+analysis.averageTStatistic,
+analysis.overrepresentation,
+analysis.customOverrepresentation,
+analysis.globalTest,
+analysis.globalAncova,
+
+filterGeneSets,
+preprocessGs,
+mergeProbesForGenes,
+parseGmt,
+
+global.overrepresentation,
+global.test,
+global.ancova,
+
+gls.cor,
+gls.regression,
+gls.foldChange,
+gls.tStatistic,
+gls.moderateTStatistic,
+gls.nBinomTest,
+
+transformation.abs,
+transformation.square,
+transformation.localFdr,
+transformation.binarize,
+transformation.rank,
+transformation.adjust,
+transformation.adjustAndBinarize,
+
+gss.mean,
+gss.sum,
+gss.wilcoxonRankTest,
+gss.maxmean,
+gss.median,
+gss.enrichmentScore,
+gss.fisherExactTest,
+gss.gsz,
+
+significance.sampling,
+significance.permutation,
+significance.restandardization,
+
+evaluateGeneSetUncertainty,
+
+createSummaryTable,
+
+plotOverrepresentation
+)
