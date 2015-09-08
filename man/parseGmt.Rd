@@ -29,11 +29,3 @@ Subramanian, A., Tamayo, P., Mootha, V. K., Mukherjee, S., Ebert, B. L., Gillett
 \seealso{
 \code{\link{geneSetAnalysis}}, \code{\link{predefinedAnalyses}}, \code{\link{gsAnalysis}}
 }
-\examples{
-\donttest{
-  # download the file from MSigDB first and place it in the workspace directory
-	geneSets <- parseGmt("msigdb.v4.0.entrez.gmt")
-}
-}
-
-%\keyword{}

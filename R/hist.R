@@ -183,8 +183,8 @@ plot.uncertaintyResult <- function(x,
 	if(addMinimalStability){
 		a <- (x$originalGeneSetValues$res.all[[1]]$geneSetValues$gss - nullDistr[2])
 		linEstimate <- (nullDistr[3]-nullDistr[1])/a
-		myMain <- paste(myMain, "resampling stability:", x$uncertainty, "\n",
-			"minimal stability:", round(linEstimate, digits = 4), sep = " ")
+		myMain <- paste(myMain, "resampling stability:", round(x$uncertainty, digits = 2), "\n",
+			"minimal stability:", round(linEstimate, digits = 2), sep = " ")
 	}else{
 		myMain <- paste(myMain, "estimated uncertainty:", x$uncertainty, sep = " ")
 	}

@@ -93,7 +93,7 @@ analysis.customOverrepresentation <- function(){
 		gss 							= NULL,
 		gssParameterNames 				= NULL,
 		globalStat 						= "global.overrepresentation",
-		globalStatParameterNames 		= c("coreset"),
+		globalStatParameterNames 		= c("coreSet"),
 		significance 					= NULL,
 		significanceParameterNames 		= NULL,
 		testAlternative					= NULL))
