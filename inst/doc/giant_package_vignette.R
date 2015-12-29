@@ -84,13 +84,34 @@ dev.off()
 
 
 ###################################################
-### code chunk number 11: giant_package_vignette.Snw:142-143
+### code chunk number 11: giant_package_vignette.Snw:142-158 (eval = FALSE)
+###################################################
+## library(parallel)
+## mc <- 2 #number of cpus to use
+## cl <- makeCluster(mc) #initialize a cluster
+## 
+## resGsea <- geneSetAnalysis(
+## 	labs = phenodata$metastases,
+## 	method = "pearson",
+## 	numSamples = 1000,
+## 	dat = vantVeer,
+## 	geneSets = pathways,
+## 	analysis = analysis.gsea(),
+## 	adjustmentMethod = "fdr",
+## 	signLevel=0.1,
+## 	cluster = cl)
+## 
+## stopCluster(cl)
+
+
+###################################################
+### code chunk number 12: giant_package_vignette.Snw:165-166
 ###################################################
 set.seed(132)
 
 
 ###################################################
-### code chunk number 12: giant_package_vignette.Snw:146-158
+### code chunk number 13: giant_package_vignette.Snw:169-181
 ###################################################
 stat <- abs(apply(vantVeer,1,cor,y = phenodata$metastases))
 coreSet <- rownames(vantVeer)[tail(order(stat), 25)]
@@ -107,7 +128,7 @@ summary(resOverrep)
 
 
 ###################################################
-### code chunk number 13: giant_package_vignette.Snw:171-174
+### code chunk number 14: giant_package_vignette.Snw:194-197
 ###################################################
 pdf("overrepresentation.pdf")
 plotOverrepresentation(resOverrep, subset = 1:4, aggregate = TRUE)
@@ -115,13 +136,13 @@ dev.off()
 
 
 ###################################################
-### code chunk number 14: giant_package_vignette.Snw:177-178 (eval = FALSE)
+### code chunk number 15: giant_package_vignette.Snw:200-201 (eval = FALSE)
 ###################################################
 ## plotOverrepresentation(resOverrep, aggregate = TRUE)
 
 
 ###################################################
-### code chunk number 15: giant_package_vignette.Snw:192-206 (eval = FALSE)
+### code chunk number 16: giant_package_vignette.Snw:215-229 (eval = FALSE)
 ###################################################
 ## resUncertainty <- evaluateGeneSetUncertainty(
 ## 	#parameters in ...
@@ -140,7 +161,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 16: giant_package_vignette.Snw:208-223
+### code chunk number 17: giant_package_vignette.Snw:231-246
 ###################################################
 resUncertainty <- evaluateGeneSetUncertainty(
 	#parameters in ...
@@ -160,7 +181,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 17: giant_package_vignette.Snw:241-246
+### code chunk number 18: giant_package_vignette.Snw:265-270
 ###################################################
 myGLS <- function(dat, labs, method = "pearson"){
 	return(apply(dat, 1, function(x){
@@ -170,7 +191,7 @@ myGLS <- function(dat, labs, method = "pearson"){
 
 
 ###################################################
-### code chunk number 18: giant_package_vignette.Snw:253-256
+### code chunk number 19: giant_package_vignette.Snw:277-280
 ###################################################
 myGSS <- function(x, geneSetIndices){
     return(mean(x[geneSetIndices]))
@@ -178,7 +199,7 @@ myGSS <- function(x, geneSetIndices){
 
 
 ###################################################
-### code chunk number 19: giant_package_vignette.Snw:264-278
+### code chunk number 20: giant_package_vignette.Snw:288-302
 ###################################################
 myAnalysis <- function(){
 	return(gsAnalysis(name = "myAnalysis",
@@ -197,7 +218,7 @@ myAnalysis <- function(){
 
 
 ###################################################
-### code chunk number 20: giant_package_vignette.Snw:286-296
+### code chunk number 21: giant_package_vignette.Snw:310-320
 ###################################################
 myResult <- geneSetAnalysis(
 	labs = phenodata$metastases,

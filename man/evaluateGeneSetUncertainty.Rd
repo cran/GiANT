@@ -13,6 +13,7 @@ evaluateGeneSetUncertainty(
 	geneSet,
 	analysis,
 	numSamplesUncertainty,
+	blockSize = 1,
 	k = seq(0.01, 0.99, by=0.01),
 	signLevel = 0.05,
 	preprocessGeneSet = FALSE,
@@ -33,6 +34,9 @@ evaluateGeneSetUncertainty(
 }
 \item{numSamplesUncertainty}{
 	The number of resampling experiments which should be applied to estimate the robustness of \code{geneSet}.
+}
+\item{blockSize}{
+	Number of genes in one resampled block.
 }
 \item{k}{
 	A \code{vector} of percentages of genes in the randomized gene sets that should be taken from the original gene set. The remaining genes are chosen randomly. For each value a resampling experiment is performed.

@@ -90,10 +90,11 @@ resUncertainty <- evaluateGeneSetUncertainty(
   geneSet = pathways[[3]],
   analysis = analysis.averageCorrelation(),
   numSamplesUncertainty = 10,
+  blockSize = 1,
   k = seq(0.1,0.9,by=0.1),
   # additional parameters for analysis.averageCorrelation
   labs = phenodata$metastases,
-  numSamples = 100)
+  numSamples = 10)
 
 plot(resUncertainty, main = names(pathways[3]))
 }

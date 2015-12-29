@@ -71,11 +71,11 @@ The modular structure of a gene set analysis, implemented in the package. For ea
 \label{fig:modules}
 \end{figure}
 
-\section{Applying a gene set analysis}
+\section{Performing a gene set analysis}
 
 The main interface of the package is the \texttt{geneSetAnalysis()} function. In the \texttt{analysis} parameter, this function is supplied with a description of the analysis that should be applied. Further arguments hold parameters of the method.
 
-In the following, we apply the well-known Gene Set Enrichment Analysis (GSEA, \cite{subramanian2005}) to a gene expression data set of 96 breast cancer samples grouped according to their metastasis status and a set of nine pathways that are related to cancer. Both the data set and the pathways are provided in the \texttt{GlobalAncova} package. For the \texttt{analysis} parameter, we specify the function \texttt{analysis.gsea()} that creates a wrapper object describing the toolchain for a GSEA analysis. We further specify that Pearson correlation should be used as a gene-level statistic and that gene set enrichment p-values should be adjusted according to false discovery rate (FDR). We use a significance level of 0.1, which is common when using FDR-based adjustment.
+In the following, we apply the well-known Gene Set Enrichment Analysis (GSEA, \cite{subramanian2005}) to a gene expression data set of 96 breast cancer samples grouped according to their metastasis status and a set of nine pathways that are related to cancer. Both the data set and the pathways are provided in the \texttt{GlobalAncova} package. For the \texttt{analysis} parameter, we specify the function \texttt{analysis.gsea()} that creates a wrapper object describing the toolchain for a GSEA analysis. We further specify that Pearson correlation should be used as a gene-level statistic and that gene set enrichment p-values should be adjusted according to false discovery rate (FDR). We use a significance level of 0.1, which is common when using FDR-based adjustments.
 
 <<echo=FALSE,results=hide>>=
 set.seed(42)
@@ -105,7 +105,7 @@ The results of enrichment analyses can be summarized via the \texttt{summary()} 
 summary(resGsea)
 @
 \end{samepage}
-We can see that only one of the gene sets -- the cell cycle control -- is significantly enriched. To get more detailed results, we can create a table with the raw and adjusted p-values for each gene set that can be useful for further processing steps:
+We can see how many of the gene sets are enriched significantly. The alpha level used in the original analysis was applied. To get more detailed results, we can create a table with the raw and adjusted p-values for each gene set that can be useful for further processing steps:
 <<>>=
 tab <- createSummaryTable(resGsea)
 tab
@@ -136,6 +136,29 @@ dev.off()
 @
 
 The results are shown in Figure~\ref{fig:gsea}. Here, the histogram corresponds to the null distribution of gene set statistic values for random gene sets and class assignments, whereas the red vertical line corresponds to the gene set statistic score of the cell cycle control gene set. The fact that the line is to the right of the 95\% quantile of the null distribution (the blue line) expresses that the gene set is significantly enriched.
+
+For analyzing the gene sets in parallel, the parallelization option, integrated in the package can be used:
+
+<<eval=FALSE>>=
+library(parallel)
+mc <- 2 #number of cpus to use
+cl <- makeCluster(mc) #initialize a cluster
+
+resGsea <- geneSetAnalysis(
+	labs = phenodata$metastases,
+	method = "pearson",
+	numSamples = 1000,
+	dat = vantVeer,
+	geneSets = pathways,
+	analysis = analysis.gsea(),
+	adjustmentMethod = "fdr",
+	signLevel=0.1,
+	cluster = cl)
+
+stopCluster(cl)
+@
+
+
 
 Another commonly used gene set analysis method is the overrepresentation analysis, which checks whether the genes of a core set are significantly overrepresented among the gene sets. While the GSEA considers all genes in a data set and their corresponding gene-level statistics, an overrepresentation analysis requires a prior selection of an interesting subset, such as those genes whose p-value for differential expression is significant, or the top 100 differentially expressed genes. The names of the genes in this subset are supplied as a vector in the \texttt{coreSet} parameter. Here, we select the 25 genes with the highest absolute correlation to the class label:
 
@@ -178,7 +201,7 @@ dev.off()
 plotOverrepresentation(resOverrep, aggregate = TRUE)
 @
 
-The plot is shown in Figure~\ref{fig:overrepresentation}. Venn diagrams can only be plotted for up to five sets, which is why we restrict the overrepresentation analysis to four sets here. For more than 5 sets or area proportional Venn diagramms we recommend VennMaster~\cite{kestler2005,kestler2008} ( http://sysbio.uni-ulm.de/?Software:VennMaster ). The cell cycle control gene set, which is the only significant set, has an overlap of 6 genes with the core set. The other gene sets show almost no overlap with the core set and with each other.
+The plot is shown in Figure~\ref{fig:overrepresentation}. Venn diagrams can only be plotted for up to five sets, which is why we restrict the overrepresentation analysis to four sets here. For more than 5 sets or area proportional Venn diagramms we recommend VennMaster~\cite{kestler2005,kestler2008} (http://sysbio.uni-ulm.de/). The cell cycle control gene set, which is the only significant set, has an overlap of 6 genes with the core set. The other gene sets show almost no overlap with the core set and with each other.
 
 Apart from GSEA and overrepresentation analysis, the package defines further standard analyses, such as a wrapper for the global Ancova method in the \texttt{GlobalAncova} package. All these methods can be used in the same way. An overview of predefined configurations can be found on the help page \texttt{predefinedAnalyses}.
 
@@ -227,6 +250,7 @@ Figure~\ref{fig:uncertainty} shows the results of the analysis. The blue lines s
 \begin{figure}
   \centering
   \includegraphics[width=.7\linewidth]{uncertainty}
+  \caption{Results of an uncertainty analysis. Blue lines correspond to the tested degrees of fuzziness. Dots in the columns give the quantiles ($\{0.05, 0.5, 0.95\}$) of the test statistic values obtained by resampling a percentage of genes from the gene set ($k$) and the remaining genes ($1-k$) from the set of all genes in the dataset. The fuzziness of the gene set is the tested value of $k$ which has a non overlapping confidence interval with the null distribution (resampling stability, black vertical line).}
   \label{fig:uncertainty}
 \end{figure}
 
@@ -300,6 +324,22 @@ Similarly to the predefined significance assessment \texttt{significance.samplin
 
 Finally, it should be mentioned that an analysis comprising the above steps is already defined in the package:
 Instead of defining our own analysis, we could also have used the predefined analysis \texttt{analysis.averageCorrelation()} in this case.
+
+\appendix
+
+\section{Further investigation options}
+
+We also investigated the behavior of the presented quantification of uncertainty by introducing noise to the measurements related to gene set genes. Random values were drawn from the dataset. We replaced measurements of up to 15 pathway genes by randomly drawn measurements from the complete data set (Figure~\ref{fig:uncertaintyNoise}).
+The robustness of the pathway (and also the mean correlation of the pathway genes) decreases with an increasing amount of this type of noise. While for the original pathway about 30\% of randomly selected genes still led to a significant result (see Figure~\ref{fig:uncertainty}), only 5\% of randomly selected genes can be replaced when 8 of the pathway genes are noisy. For 12 noisy genes the pathway is not significantly enriched anymore.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{vignette_randomGeneSetValues}
+\caption{
+Results of the uncertainty analysis with different levels of noise. Measurements of up to 15 of 31 genes have been replaced by randomly drawn measurements. The uncertainty decreases with increasing noise. With 12 genes replaced the gene set is not enriched anymore.}
+\label{fig:uncertaintyNoise}
+\end{figure}
+
 
 \bibliographystyle{plain}
 \bibliography{giant_bibliography}
