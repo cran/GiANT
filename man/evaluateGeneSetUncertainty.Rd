@@ -104,11 +104,11 @@ res <- evaluateGeneSetUncertainty(
 	dat = vantVeer,
 	geneSet = pathways[[1]],
 	analysis = analysis.averageCorrelation(),
-	numSamplesUncertainty = 100,
+	numSamplesUncertainty = 10,
 	k = seq(0.1,0.9, by=0.1),
 	# additional parameters for analysis.averageCorrelation
 	labs = phenodata$metastases,
-	numSamples = 100)
+	numSamples = 10)
 }
 
 %\keyword{}

@@ -60,7 +60,7 @@ res <- evaluateGeneSetUncertainty(
 	N = seq(0.1,0.9, by=0.1),
 	# additional parameters for analysis.averageCorrelation
 	labs = phenodata$metastases,
-	numSamples = 100)
+	numSamples = 10)
 
 # plot the results for the cell cycle control gene set
 plot(res, addMinimalStability = TRUE)

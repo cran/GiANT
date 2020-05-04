@@ -52,8 +52,7 @@ To use the package's interfaces to existing methods in other packages, these pac
 # CRAN packages
 install.packages(c("st", "fdrtool"))
 # Bioconductor packages
-source("http://bioconductor.org/biocLite.R")
-biocLite(c("GlobalAncova", "limma", "DESeq"))
+BiocManager::install(c("GlobalAncova", "limma", "DESeq"))
 @
 
 After installing all required packages, the \texttt{GiANT} package can be loaded via
@@ -79,19 +78,21 @@ In the following, we apply the well-known Gene Set Enrichment Analysis (GSEA, \c
 
 <<echo=FALSE,results=hide>>=
 set.seed(42)
+load("./vignetteData.RData")
 @
 
-<<>>=
+<<eval=FALSE>>=
 # load data
 require(GlobalAncova)
 data(vantVeer)
 data(phenodata)
 data(pathways)
 
+
 resGsea <- geneSetAnalysis(
 	labs = phenodata$metastases,
 	method = "pearson",
-	numSamples = 1000,
+	0,
 	dat = vantVeer,
 	geneSets = pathways,
 	analysis = analysis.gsea(),
@@ -104,16 +105,22 @@ The results of enrichment analyses can be summarized via the \texttt{summary()} 
 <<>>=
 summary(resGsea)
 @
+
+
 \end{samepage}
 We can see how many of the gene sets are enriched significantly. The alpha level used in the original analysis was applied. To get more detailed results, we can create a table with the raw and adjusted p-values for each gene set that can be useful for further processing steps:
-<<>>=
+<<eval=FALSE>>=
 tab <- createSummaryTable(resGsea)
+@
+<<>>=
 tab
 @
 This function can be parameterized in different ways. E.g., to extract only the significantly enriched gene sets ordered by their name, type
-<<>>=
-tab <- createSummaryTable(resGsea, significantOnly=TRUE, orderBy="geneSetName")
-tab
+<<eval=FALSE>>=
+signtab <- createSummaryTable(resGsea, significantOnly=TRUE, orderBy="geneSetName")
+@
+<<>>==
+signtab
 @
 The data frames resulting from \texttt{createSummaryTable()} can be used to export results to other programs, e.g. by writing it to CSV files using \texttt{write.csv()}.
 
@@ -129,7 +136,7 @@ The results of the enrichment analyses can also be visualized in form of histogr
 <<eval=FALSE>>=
 hist(resGsea, subset = 3, aggregate = TRUE)
 @
-<<echo=FALSE,results=hide>>=
+<<eval=FALSE,echo=FALSE,results=hide>>=
 pdf("gsea.pdf")
 hist(resGsea, subset = 3, aggregate = TRUE)
 dev.off()
@@ -166,7 +173,7 @@ Another commonly used gene set analysis method is the overrepresentation analysi
 set.seed(132)
 @
 
-<<>>=
+<<eval=FALSE>>=
 stat <- abs(apply(vantVeer,1,cor,y = phenodata$metastases))
 coreSet <- rownames(vantVeer)[tail(order(stat), 25)]
 
@@ -191,7 +198,7 @@ We can see that the cell cycle control gene set, which was already significantly
 
 For the overrepresentation analysis,  \texttt{plotOverrepresentation()} can be used to visualize the overlaps of the core set and the specified gene sets in form of a Venn diagram:
 
-<<echo=FALSE,results=hide>>=
+<<eval=FALSE,echo=FALSE,results=hide>>=
 pdf("overrepresentation.pdf")
 plotOverrepresentation(resOverrep, subset = 1:4, aggregate = TRUE)
 dev.off()
@@ -228,7 +235,7 @@ plot(resUncertainty,
 	main = names(pathways[3]),
 	addMinimalStability = TRUE)
 @
-<<echo=FALSE,results=hide>>=
+<<eval=FALSE,echo=FALSE,results=hide>>=
 resUncertainty <- evaluateGeneSetUncertainty(
 	#parameters in ...
 	labs = phenodata$metastases,
@@ -239,6 +246,8 @@ resUncertainty <- evaluateGeneSetUncertainty(
 	analysis = analysis.averageCorrelation(),
 	numSamplesUncertainty = 100,
 	k = seq(0.1,0.9,by = 0.1))
+@
+<<eval=FALSE,echo=FALSE,results=hide>>=
 pdf("uncertainty.pdf")
 plot(resUncertainty,
 	main = names(pathways[3]),
@@ -285,7 +294,7 @@ The final step is the significance assessment. This step compares the gene set s
 
 Let us now assemble the above steps. For this purpose, we define a function \texttt{myAnalysis()} that calls \texttt{gsAnalysis()} with the specified functions and their parameter names internally. Calling \texttt{myAnalysis()} function will then return the wrapper object that defines our analysis:
 
-<<>>=
+<<eval=FALSE>>=
 myAnalysis <- function(){
 	return(gsAnalysis(name = "myAnalysis",
 		gls = "myGLS", 
@@ -307,7 +316,7 @@ Here, \texttt{gls}, \texttt{transformation}, \texttt{gss} and \texttt{significan
 Our new analysis can now be called exactly in the same way as the predefined analysis by supplying it to \texttt{geneSetAnalysis()}:
 
 
-<<results=hide>>=
+<<eval=FALSE,results=hide>>=
 myResult <- geneSetAnalysis(
 	labs = phenodata$metastases,
 	method = "pearson",
@@ -316,7 +325,8 @@ myResult <- geneSetAnalysis(
 	geneSets = pathways,
 	analysis = myAnalysis(),
 	adjustmentMethod = "fdr")
-
+@
+<<eval=FALSE,results=hide>>=
 hist(myResult)
 @
 
@@ -340,7 +350,7 @@ Results of the uncertainty analysis with different levels of noise. Measurements
 \label{fig:uncertaintyNoise}
 \end{figure}
 
-
+\clearpage
 \bibliographystyle{plain}
 \bibliography{giant_bibliography}
 

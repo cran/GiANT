@@ -65,7 +65,7 @@ res <- geneSetAnalysis(
 	# additional parameters for analysis.averageCorrelation
 	labs = phenodata$metastases,
 	p = 1,
-	numSamples = 100)
+	numSamples = 10)
 
 # plot the histogram for the cell cycle control gene set
 hist(res, main = names(pathways[3]))

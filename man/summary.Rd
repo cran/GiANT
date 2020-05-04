@@ -56,7 +56,7 @@ res <- geneSetAnalysis(
 	analysis = analysis.averageCorrelation(), 
 	# additional parameters for analysis.averageCorrelation
 	labs = phenodata$metastases,
-	numSamples = 100)
+	numSamples = 10)
 
 #summarize the analyses
 summary(res, mode = "summary")

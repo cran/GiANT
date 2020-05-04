@@ -129,7 +129,7 @@ res <- geneSetAnalysis(
 	analysis = gsa, 
 	# parameters for the specific analysis gsAna1
 	labs = phenodata$metastases,
-	numSamples = 100)
+	numSamples = 10)
 
 }
 

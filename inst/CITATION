@@ -1,0 +1,22 @@
+citHeader("To cite package 'GiANT' in publications use:")
+     
+citEntry(entry = "article",
+        title = "{GiANT}: Gene set uncertainty in enrichment analysis",
+        author = personList(as.person("Florian Schmid"),
+                            as.person("Matthias Schmid"),
+                            as.person("Christoph M\\\"ussel"),
+                            as.person("J. Eric Str\\\"ang"),
+                            as.person("Christian Buske"),
+                            as.person("Lars Bullinger"),
+                            as.person("Johann M. Kraus"),
+                            as.person("Hans A. Kestler")),
+        journal = "Bioinformatics",
+        volume = "32",
+        number = "12",
+        pages = "1891--1894",
+        year = "2016",
+        textVersion =
+        paste("Florian Schmid, Matthias Schmid, Christoph Müssel, J. Eric Sträng, Christian Buske, Lars Bullinger, Johann M. Kraus, Hans A. Kestler (2016). ",
+              "GiANT: Gene set uncertainty in enrichment analysis. ",
+              "Bioinformatics 32(12):1891--1894.", sep=""))
+

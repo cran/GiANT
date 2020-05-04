@@ -74,13 +74,13 @@ data(pathways)
 resAvCor <- geneSetAnalysis(
 	# parameters for geneSetAnalysis
 	dat = vantVeer,
-	geneSets = pathways[1:2],
+	geneSets = pathways[1],
 	analysis = analysis.averageCorrelation(),
 	adjustmentMethod = "fdr",
 	# additional parameters for analysis.averageCorrelation
   labs = phenodata$metastases,
 	method = "pearson",
-	numSamples = 100)
+	numSamples = 10)
 
 # apply an overrepresentation analysis
 resOverrep <- geneSetAnalysis(
@@ -99,7 +99,7 @@ resOverrep <- geneSetAnalysis(
 resGA <- geneSetAnalysis(
 	# parameters for geneSetAnalysis
 	dat = vantVeer,
-	geneSets = pathways[1:2],
+	geneSets = pathways[1],
 	analysis = analysis.globalAncova(),
 	adjustmentMethod = "fdr",
 	# additional parameters for analysis.globalAncova

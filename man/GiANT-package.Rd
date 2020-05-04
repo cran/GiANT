@@ -11,8 +11,8 @@ Enrichment analysis
 \tabular{ll}{
 Package: \tab GiANT\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-05-13\cr
+Version: \tab 1.3\cr
+Date: \tab 2020-04-29\cr
 License: \tab Artistic-2.0 \cr
 LazyLoad: \tab yes\cr
 }
@@ -71,13 +71,13 @@ data(pathways)
 res <- geneSetAnalysis(  
   # parameters for geneSetAnalysis
   dat = vantVeer,
-  geneSets = pathways[1:3],
+  geneSets = pathways[1],
   analysis = analysis.averageCorrelation(),
   adjustmentMethod = "fdr",
   # additional parameters for analysis.averageCorrelation
   labs = phenodata$metastases,
   method = "pearson",
-  numSamples = 100)
+  numSamples = 50)
 
 summary(res, mode="table")
 
@@ -89,12 +89,12 @@ resUncertainty <- evaluateGeneSetUncertainty(
   dat = vantVeer,
   geneSet = pathways[[3]],
   analysis = analysis.averageCorrelation(),
-  numSamplesUncertainty = 10,
+  numSamplesUncertainty = 5,
   blockSize = 1,
   k = seq(0.1,0.9,by=0.1),
   # additional parameters for analysis.averageCorrelation
   labs = phenodata$metastases,
-  numSamples = 10)
+  numSamples = 5)
 
 plot(resUncertainty, main = names(pathways[3]))
 }
