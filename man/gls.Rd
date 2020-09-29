@@ -51,16 +51,16 @@ gls.nBinomTest(dat, labs,
 	For \code{gls.tStatistic}, this specifies the alternative of the t-test. See also \code{\link{t.test}}.
 }
 \item{returnValue}{
-	For \code{gls.nBinomTest}, this determines the type of values values that should be returned. \code{"pval"} returns the raw p-values, \code{"qval"} returns the p-values adjusted by the FDR, \code{"foldChange"} returns the fold changes, and \code{"log2FoldChange"} returns the log2 fold changes. For more details, see \code{\link[DESeq]{nbinomTest}}.
+	For \code{gls.nBinomTest}, this determines the type of values values that should be returned. \code{"pval"} returns the raw p-values, \code{"qval"} returns the p-values adjusted by the FDR, \code{"foldChange"} returns the fold changes, and \code{"log2FoldChange"} returns the log2 fold changes. For more details, see \code{\link[DESeq2]{results}}.
 }
 \item{dispersionMethod}{
-	For \code{gls.nBinomTest}, this specifies how the empirical dispersion is computed (see \code{\link[DESeq]{estimateDispersions}}).
+	For \code{gls.nBinomTest}, this specifies how the empirical dispersion is computed (see \code{\link[DESeq2]{estimateDispersions}}).
 }
 \item{dispersionSharingMode}{
-	For \code{gls.nBinomTest}, this specifies which values should be used by \code{\link[DESeq]{nbinomTest}} (fitted values or empirical values, see \code{\link[DESeq]{estimateDispersions}} for more details).
+	For \code{gls.nBinomTest}, this specifies which values should be used by \code{\link[DESeq2]{results}} (fitted values or empirical values, see \code{\link[DESeq2]{estimateDispersions}} for more details).
 }
 \item{dispersionFitType}{
-	For \code{gls.nBinomTest}, this determines the method for fitting the dispersion-mean relation (see \code{\link[DESeq]{estimateDispersions}}).
+	For \code{gls.nBinomTest}, this determines the method for fitting the dispersion-mean relation (see \code{\link[DESeq2]{estimateDispersions}}).
 }
 }
 \details{
@@ -94,7 +94,7 @@ Calculates the moderate t statistic for the measurements of the two classes
 
 \item{\code{gls.nBinomTest}: }
 {
-Applies the negative binomial test for sequencing data based on the \pkg{DESeq} package to test for differences between two classes (see \code{\link[DESeq]{nbinomTest}}).
+Applies the negative binomial test for sequencing data based on the \pkg{DESeq2} package to test for differences between two classes (see \code{\link[DESeq2]{results}}).
 }
 
 }

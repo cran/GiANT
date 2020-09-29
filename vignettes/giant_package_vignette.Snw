@@ -52,7 +52,7 @@ To use the package's interfaces to existing methods in other packages, these pac
 # CRAN packages
 install.packages(c("st", "fdrtool"))
 # Bioconductor packages
-BiocManager::install(c("GlobalAncova", "limma", "DESeq"))
+BiocManager::install(c("GlobalAncova", "limma", "DESeq2"))
 @
 
 After installing all required packages, the \texttt{GiANT} package can be loaded via

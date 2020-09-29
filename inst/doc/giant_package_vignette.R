@@ -12,7 +12,7 @@
 ## # CRAN packages
 ## install.packages(c("st", "fdrtool"))
 ## # Bioconductor packages
-## BiocManager::install(c("GlobalAncova", "limma", "DESeq"))
+## BiocManager::install(c("GlobalAncova", "limma", "DESeq2"))
 
 
 ###################################################

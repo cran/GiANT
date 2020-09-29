@@ -1,4 +1,4 @@
-0e895d3f737da9d02ec89167c372600e *DESCRIPTION
+2bf643f33e73bfdb74883ac33194540d *DESCRIPTION
 f9d7e18ec46010ee0524ecc6652d1491 *NAMESPACE
 16552a63792ce9d2fc7556f7348f493a *R/analysis.R
 c92cfe3a8a8169d448dd11e00a1d44f3 *R/combineDuplicates.R
@@ -6,7 +6,7 @@ a1c5bc3121d7cf4be8ed64afe7a9aba5 *R/enrProcedure.R
 475ef3f0999cd36eb7e117f338ba7ad9 *R/evaluateGeneSetUncertainty.R
 bde98445df52ef5665be3ffd866e0800 *R/geneSetAnalysis.R
 43dc4c5889a9841767e56acd0ea5fca0 *R/global.R
-2cabc071e17ab87c5b82b74ccc1fc2a3 *R/gls.R
+0d848974f39a3d7287e8ef7d31f027e5 *R/gls.R
 482176908efcdd38376b7e363cb35187 *R/gss.R
 abbd2145b1e9d09f0c6a3518acfcde4a *R/hist.R
 d460fe81a803f682ab38c658be219285 *R/parseGmt.R
@@ -16,18 +16,18 @@ d460fe81a803f682ab38c658be219285 *R/parseGmt.R
 3a42c2bb1825b10d6394aea069648311 *R/summary.gsaResult.R
 4c37c2297dcb0c87a47ba87bc275e981 *R/transformations.R
 482fc6dc068fc67376774143185a8afc *R/utils.R
-01baabd6c8c51ae21d953f4a3a755401 *build/vignette.rds
+e07e2aa1afb5cce7fd6d95fac7bd3d67 *build/vignette.rds
 340f640fd5903d5bb38f134e46a700c4 *inst/CITATION
-5634e21a82c351bb71b49bee0d19275e *inst/doc/giant_package_vignette.R
-471395028f152a54e7d01dd444733d7c *inst/doc/giant_package_vignette.Snw
-92cc8f89dee9ecab7af1c602fae7955f *inst/doc/giant_package_vignette.pdf
+64c0e34d5758e9196191ea9769be8bb0 *inst/doc/giant_package_vignette.R
+1d4d5ad83f99275f33d221e7f74ce456 *inst/doc/giant_package_vignette.Snw
+8385ec9a9b102305114f21e0c6d7d756 *inst/doc/giant_package_vignette.pdf
 3eab602ed14e926c4588c227018ec391 *man/GiANT-package.Rd
 da079f54afe975f6381fa49d4b85e550 *man/createSummaryTable.Rd
 e95baabf4199b494eb548f7867a4816a *man/evaluateGeneSetUncertainty.Rd
 0666a302b68066027b012cfb4ae63cd5 *man/filterGenesets.Rd
 fffe90a69db6e507c83cc25ee06386d9 *man/geneSetAnalysis.Rd
 9c9a3fd40b904521ff96b04816d19e0c *man/globalAnalysis.Rd
-94b56f558d7802d60d165ced4d8991dd *man/gls.Rd
+80310510459106c386ce5dae12cf4ce5 *man/gls.Rd
 ba0cc0e7de20ca045c3aabc160d01465 *man/gsAnalysis.Rd
 1f31bbf433c286bed6a3f6a49ebb25c4 *man/gss.Rd
 063347703ee0045c3e7644c98a8e064a *man/hist.Rd
@@ -41,7 +41,7 @@ f64c1a775692dd327c1e422493c6969f *man/plotOverrepresentation.Rd
 7f2e4e65075e7f29753c37fc96827b9e *man/summary.Rd
 67d705f3a24e9eba8fec0d0eb8679338 *man/transformation.Rd
 26a844c59b1bb9aa348a86dc3a4a3d01 *vignettes/giant_bibliography.bib
-471395028f152a54e7d01dd444733d7c *vignettes/giant_package_vignette.Snw
+1d4d5ad83f99275f33d221e7f74ce456 *vignettes/giant_package_vignette.Snw
 52534f5fc14f0586f1a04deaf56cc340 *vignettes/gsea.pdf
 3628fe0384b651b377c021d2070906eb *vignettes/modules.pdf
 9afe3b8f1b80e6baf86abfee2da86131 *vignettes/overrepresentation.pdf

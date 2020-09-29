@@ -67,32 +67,35 @@ gls.nBinomTest <- function(dat, labs,
 	returnValue <- match.arg(returnValue)
 	cl <- sort(unique(labs))
 
-	requireNamespace("DESeq")
+	requireNamespace("DESeq2")
 
-	cds <- DESeq::newCountDataSet(dat, labs)   
-	cds <- DESeq::estimateSizeFactors(cds)
-	cds <- DESeq::estimateDispersions(cds,
+	cds <- DESeq2::DESeqDataSet(dat, labs)   
+	cds <- DESeq2::estimateSizeFactors(cds)
+	cds <- DESeq2::estimateDispersions(cds,
 		method=dispersionMethod,
 		sharingMode=dispersionSharingMode,
 		fitType=dispersionFitType)
 
-	pval <- DESeq::nbinomTest(cds, cl[2], cl[1])
+	tmpRes <- as.matrix(DESeq2::results(cds))
+	
+	names(tmpRes)[which(names(tmpRes) == "pvalue")] <- "pval"
+	tmpRes$foldChange <- 2^tmpRes$log2FoldChange
 	
 	switch(returnValue, 
-		pval={
-			tmp <- pval$pval
-		},
-		qval={
-			tmp <- pval$padj
-		},
-		foldChange={
-			tmp <- pval$foldChange
-		},
-		log2FoldChange={
-			tmp <- pval$log2FoldChange
-		})	
-
-	names(tmp) <- rownames(dat)
+	       pval={
+	         tmp <- tmpRes$pval
+	       },
+	       qval={
+	         tmp <- tmpRes$padj
+	       },
+	       foldChange={
+	         tmp <- tmpRes$foldChange
+	       },
+	       log2FoldChange={
+	         tmp <- tmpRes$log2FoldChange
+	       })
+	
+	
 	return(tmp)
 }
 
