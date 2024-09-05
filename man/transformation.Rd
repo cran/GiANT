@@ -59,40 +59,20 @@ transformation.adjustAndBinarize(x, adjMethod = "fdr", threshold = 0.05)
 Standard transformation functions for gene-level statistics (to be used in an analysis pipeline defined by \code{gsAnalysis}):
 \itemize{
 
-\item{\code{transformation.abs}: }
-{
-Calculates the absolute values of the elements in \code{x} (a wrapper for \code{\link{abs}}).
-}
+\item \code{transformation.abs}: Calculates the absolute values of the elements in \code{x} (a wrapper for \code{\link{abs}}).
 
-\item{\code{transformation.square}: }
-{
-Squares all elements in \code{x}.
-}
+\item \code{transformation.square}: Squares all elements in \code{x}.
 
-\item{\code{transformation.localFdr}: }
-{
-Calculates the local fdr for the elements in \code{x}. This is a wrapper for \code{\link[fdrtool]{fdrtool}}.
-}
+\item \code{transformation.localFdr}: Calculates the local fdr for the elements in \code{x}. This is a wrapper for \code{\link[fdrtool]{fdrtool}}.
 
-\item{\code{transformation.binarize}: }
-{
-Binarizes the values in \code{x} by using the \code{quant} quantile as a threshold.
-}
+\item \code{transformation.binarize}: Binarizes the values in \code{x} by using the \code{quant} quantile as a threshold.
 
-\item{\code{transformation.rank}: }
-{
-Ranks the values in \code{x} and returns the rank vector.
-}
+\item \code{transformation.rank}: Ranks the values in \code{x} and returns the rank vector.
 
-\item{\code{transformation.adjust}: }
-{
-Adjusts for multiple testing according to the adjustment method specified in \code{adjMethod}.
-}
+\item \code{transformation.adjust}: Adjusts for multiple testing according to the adjustment method specified in \code{adjMethod}.
 
-\item{\code{transformation.adjustAndBinarize}: }
-{
-Adjusts for multiple testing according to the adjustment method specified in \code{adjMethod} and binarizes the resulting p-values according to \code{threshold} (values smaller than the threshold become 1 others 0).}
-}
+\item \code{transformation.adjustAndBinarize}: Adjusts for multiple testing according to the adjustment method specified in \code{adjMethod} and binarizes the resulting p-values according to \code{threshold} (values smaller than the threshold become 1 others 0).}
+
 }
 \value{
 All functions return a vector of transformed values having the same length as \code{x}.

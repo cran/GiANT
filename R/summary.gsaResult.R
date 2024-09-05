@@ -5,7 +5,7 @@ summary.gsaResult <- function(object,
 		signLevel = object$signLevel,
 		...){
 	
-	if(class(object) != "gsaResult"){
+	if(!inherits(object,"gsaResult")){
 		stop("'object' mut be of class gsaResult.")
 	}
 	mode <- match.arg(mode)
@@ -45,7 +45,7 @@ createSummaryTable <- function(object,
 		significantOnly = FALSE,
 		signLevel = object$signLevel){
 
-	if(class(object) != "gsaResult"){
+	if(!inherits(object,"gsaResult")){
 		stop("'object' mut be of class gsaResult.")
 	}
 

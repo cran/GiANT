@@ -28,24 +28,22 @@ analysis.globalAncova()
 The above functions return configurations for state-of-the-art analysis pipelines that can be used in \code{\link{geneSetAnalysis}}. All configurations are preconfigured collections of standard methods for the different pipeline steps. The following lists the methods chosen for the different steps and their parameters. For more detailed descriptions of these methods, please refer to the linked manual pages.
 
 \itemize{
-\item{\code{analysis.gsea} }{defines the Gene Set Enrichment Analysis (GSEA) method by Subramanain et al. 
-Here, the gene-level statistic the absolute correlation calculated by \code{\link{gls.cor}} with the associated parameters \code{labs, method} and a preprocessing by \code{\link{transformation.abs}}. As a gene set statistic, the enrichment score (function \code{\link{gss.enrichmentScore}} with parameter \code{p}) is calculated. The significance is assessed in a permutation test using \code{\link{significance.permutation}} with \code{testAlternative = "greater"} and free parameter \code{numSamples, labs}.}
+\item \code{analysis.gsea} defines the Gene Set Enrichment Analysis (GSEA) method by Subramanain et al. 
+Here, the gene-level statistic the absolute correlation calculated by \code{\link{gls.cor}} with the associated parameters \code{labs, method} and a preprocessing by \code{\link{transformation.abs}}. As a gene set statistic, the enrichment score (function \code{\link{gss.enrichmentScore}} with parameter \code{p}) is calculated. The significance is assessed in a permutation test using \code{\link{significance.permutation}} with \code{testAlternative = "greater"} and free parameter \code{numSamples, labs}.
+\item \code{analysis.overrepresentation} calculates an overrepresentation analysis using the gene-level statistic \code{\link{gls.tStatistic}} with parameters \code{pValue}(should be \code{TRUE}), \code{alternative} and \code{labs}. The resulting values are then transformed via \code{transformation.adjustAndBinarize} (parameters are the \code{adjMethod} and \code{threshold}). Finally \code{gss.fisherExactTest} is used as gene set statistic.
 
-\item{\code{analysis.overrepresentation} }{calculates an overrepresentation analysis using the gene-level statistic \code{\link{gls.tStatistic}} with parameters \code{pValue}(should be \code{TRUE}), \code{alternative} and \code{labs}. The resulting values are then transformed via \code{transformation.adjustAndBinarize} (parameters are the \code{adjMethod} and \code{threshold}). Finally \code{gss.fisherExactTest} is used as gene set statistic.
-}
+\item \code{analysis.customOverrepresentation} calculates an overrepresentation analysis using a user-defined core set \code{coreSet}. That is, instead of calculating this core set internally based on differential expression as the standard overrepresentation analysis, this function allows for defining custom core sets. It internally uses the global analysis \code{\link{global.overrepresentation}}.
 
-\item{\code{analysis.customOverrepresentation} }{calculates an overrepresentation analysis using a user-defined core set \code{coreSet}. That is, instead of calculating this core set internally based on differential expression as the standard overrepresentation analysis, this function allows for defining custom core sets. It internally uses the global analysis \code{\link{global.overrepresentation}}.
-}
 
-\item{\code{analysis.averageCorrelation} }{calculates the gene-level statistic as the absolute correlation using \code{\link{gls.cor}} (with parameters \code{labs, method}) and \code{\link{transformation.abs}}. The gene set statistic is the mean correlation calculated by \code{\link{gss.mean}}. The significance is assessed by comparing the gene set statistic to randomly sampled gene sets using \code{\link{significance.sampling}} (with the parameter \code{numSamples} and the preset parameter \code{testAlternative = "greater"}).
-}
+\item \code{analysis.averageCorrelation} calculates the gene-level statistic as the absolute correlation using \code{\link{gls.cor}} (with parameters \code{labs, method}) and \code{\link{transformation.abs}}. The gene set statistic is the mean correlation calculated by \code{\link{gss.mean}}. The significance is assessed by comparing the gene set statistic to randomly sampled gene sets using \code{\link{significance.sampling}} (with the parameter \code{numSamples} and the preset parameter \code{testAlternative = "greater"}).
 
-\item{\code{analysis.averageTStatistic} }{uses the absolute t statistic as the gene-level statistic by applying \code{\link{gls.tStatistic}} (with parameters \code{labs, pValue, alternative}) and \if{latex}{\cr}\code{\link{transformation.abs}}. The gene set statistic is the mean t statistic in the gene set as returned by \code{\link{gss.mean}}. The significance is assessed by comparing the gene set statistic to randomly sampled gene sets using \code{\link{significance.sampling}} (with the parameter \code{numSamples} and the preset parameter \code{testAlternative = "greater"}).
-}
 
-\item{\code{analysis.globalTest} }{performs a global gene set enrichment analysis by Goeman et al. by applying the \code{\link{global.test}} function which in turn wraps the \code{\link[globaltest]{gt}} function in the \pkg{globaltest} package.}
+\item \code{analysis.averageTStatistic} uses the absolute t statistic as the gene-level statistic by applying \code{\link{gls.tStatistic}} (with parameters \code{labs, pValue, alternative}) and \if{latex}{\cr}\code{\link{transformation.abs}}. The gene set statistic is the mean t statistic in the gene set as returned by \code{\link{gss.mean}}. The significance is assessed by comparing the gene set statistic to randomly sampled gene sets using \code{\link{significance.sampling}} (with the parameter \code{numSamples} and the preset parameter \code{testAlternative = "greater"}).
 
-\item{\code{analysis.globalAncova} }{applies the global ANCOVA method by Hummel et al. using the global method \code{\link{global.ancova}} which wraps the \code{\link[GlobalAncova]{GlobalAncova}} function in the \pkg{GlobalAncova} package.}
+
+\item \code{analysis.globalTest} performs a global gene set enrichment analysis by Goeman et al. by applying the \code{\link{global.test}} function which in turn wraps the \code{\link[globaltest]{gt}} function in the \pkg{globaltest} package.
+
+\item \code{analysis.globalAncova} applies the global ANCOVA method by Hummel et al. using the global method \code{\link{global.ancova}} which wraps the \code{\link[GlobalAncova]{GlobalAncova}} function in the \pkg{GlobalAncova} package.
 
 }
 }
@@ -64,47 +62,44 @@ Goeman, J. J., van de Geer, S. A., de Kort, F., van Houwelingen, H. C. (2004) A 
 \code{\link{geneSetAnalysis}}, \code{\link{gsAnalysis}}
 }
 \examples{
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
-# apply a gene set analysis based on the average absolute correlation
-resAvCor <- geneSetAnalysis(
-	# parameters for geneSetAnalysis
-	dat = vantVeer,
-	geneSets = pathways[1],
-	analysis = analysis.averageCorrelation(),
-	adjustmentMethod = "fdr",
-	# additional parameters for analysis.averageCorrelation
-  labs = phenodata$metastases,
-	method = "pearson",
-	numSamples = 10)
-
-# apply an overrepresentation analysis
-resOverrep <- geneSetAnalysis(
-	# parameters for geneSetAnalysis
-	dat = vantVeer,
-	geneSets = pathways,
-	analysis = analysis.overrepresentation(),
-	adjustmentMethod = "fdr",
-	# additional parameters for analysis.overrepresentation
-	pValue = TRUE,
-	threshold = 0.1,
-	labs = phenodata$metastases
-)
-
-# apply a global analysis using GlobalAncova
-resGA <- geneSetAnalysis(
-	# parameters for geneSetAnalysis
-	dat = vantVeer,
-	geneSets = pathways[1],
-	analysis = analysis.globalAncova(),
-	adjustmentMethod = "fdr",
-	# additional parameters for analysis.globalAncova
-	labs = phenodata$metastases,
-	method = "approx")
+\donttest{
+	data(exampleData)
+  # apply a gene set analysis based on the average absolute correlation
+  resAvCor <- geneSetAnalysis(
+  	# parameters for geneSetAnalysis
+  	dat = countdata,
+  	geneSets = pathways[1],
+  	analysis = analysis.averageCorrelation(),
+  	adjustmentMethod = "fdr",
+  	# additional parameters for analysis.averageCorrelation
+    labs = labels,
+  	method = "pearson",
+  	numSamples = 10)
+  
+  # apply an overrepresentation analysis
+  resOverrep <- geneSetAnalysis(
+  	# parameters for geneSetAnalysis
+  	dat = countdata,
+  	geneSets = pathways,
+  	analysis = analysis.overrepresentation(),
+  	adjustmentMethod = "fdr",
+  	# additional parameters for analysis.overrepresentation
+  	pValue = TRUE,
+  	threshold = 0.1,
+  	labs = labels
+  )
+  
+  # apply a global analysis using GlobalAncova
+  resGA <- geneSetAnalysis(
+  	# parameters for geneSetAnalysis
+  	dat = countdata,
+  	geneSets = pathways[1],
+  	analysis = analysis.globalAncova(),
+  	adjustmentMethod = "fdr",
+  	# additional parameters for analysis.globalAncova
+  	labs = labels,
+  	method = "approx")
+}
 }
 
 %\keyword{}

@@ -67,35 +67,13 @@ gls.nBinomTest(dat, labs,
 Standard functions for the calculation of gene-level statistics (to be used in an analysis pipeline defined by \code{gsAnalysis}): 
 \itemize{
 
-\item{\code{gls.cor}: }
-{
-Calculates the correlation of the gene expression values to the class labels.
-}
+\item \code{gls.cor}: Calculates the correlation of the gene expression values to the class labels.
+\item \code{gls.regression}: Calculates the slope of a linear regression of the gene expression values and the class labels.
+\item \code{gls.foldChange}: Calculates the (standard or log2) fold change between the measurements for the two classes.
+\item \code{gls.tStatistic}: Calculates the p-value or the statistic of a two-sample t test for the measurements of the two classes
+\item \code{gls.moderateTStatistic}: Calculates the moderate t statistic for the measurements of the two classes
+\item \code{gls.nBinomTest}: Applies the negative binomial test for sequencing data based on the \pkg{DESeq2} package to test for differences between two classes (see \code{\link[DESeq2]{results}}).
 
-\item{\code{gls.regression}: }
-{
-Calculates the slope of a linear regression of the gene expression values and the class labels.
-}
-
-\item{\code{gls.foldChange}: }
-{
-Calculates the (standard or log2) fold change between the measurements for the two classes.
-}
-
-\item{\code{gls.tStatistic}: }
-{
-Calculates the p-value or the statistic of a two-sample t test for the measurements of the two classes
-}
-
-\item{\code{gls.moderateTStatistic}: }
-{
-Calculates the moderate t statistic for the measurements of the two classes
-}
-
-\item{\code{gls.nBinomTest}: }
-{
-Applies the negative binomial test for sequencing data based on the \pkg{DESeq2} package to test for differences between two classes (see \code{\link[DESeq2]{results}}).
-}
 
 }
 }

@@ -5,7 +5,7 @@ plotOverrepresentation <- function(object,
 		ask = FALSE,
 		...){
 
-	if(class(object) != "gsaResult"){
+	if(!inherits(object,"gsaResult")){
 		stop("'object' mut be of class gsaResult.")
 	}
 	if(object$analysis$name != "overrepresentation"){
@@ -15,6 +15,7 @@ plotOverrepresentation <- function(object,
 	requireNamespace("limma")
 
 	oldAsk <- par("ask")
+	on.exit(par(oldAsk))
 	nms <- names(object$res.all)
 
 	if(is.null(subset)){
@@ -103,8 +104,6 @@ plotOverrepresentation <- function(object,
 				limma::vennDiagram(aktCounts, circle.col = colors, cex = 1, ...)
 		})
 	}
-
-	par(ask=oldAsk)
 
 	return(invisible(NULL))
 }

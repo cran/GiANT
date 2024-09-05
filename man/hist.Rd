@@ -14,7 +14,7 @@ Plots the distribution of gene set statistic values obtained in different resamp
 	addLegend = TRUE,
 	...)
 }
-
+\value{Returns a list with all the underlying data for the plotted histograms as invisible object.}
 \arguments{
 \item{x}{
 	A result of a call to \code{geneSetAnalysis} (see also Details). 
@@ -52,23 +52,20 @@ The most common graphical parameters can be supplied as vectors (one entry per a
 }
 \examples{
 # load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
-res <- geneSetAnalysis(
-	# global parameters
-	dat = vantVeer,
-	geneSets = pathways[3], 
-	analysis = analysis.averageCorrelation(), 
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	p = 1,
-	numSamples = 10)
-
-# plot the histogram for the cell cycle control gene set
-hist(res, main = names(pathways[3]))
+data(exampleData)
+  res <- geneSetAnalysis(
+  	# global parameters
+  	dat = countdata,
+  	geneSets = pathways[3], 
+  	analysis = analysis.averageCorrelation(), 
+  	# additional parameters for analysis.averageCorrelation
+  	labs = labels,
+  	p = 1,
+  	numSamples = 10)
+  
+  # plot the histogram for the cell cycle control gene set
+  hist(res, main = names(pathways[3]))
 }
+
 
 %\keyword{}

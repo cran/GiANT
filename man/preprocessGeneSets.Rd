@@ -30,7 +30,6 @@ A list of preprocessed gene sets, where each gene set only contains those genes 
 \code{\link{geneSetAnalysis}}
 }
 \examples{
-#TODO better example? remove example?
 #values are not important, only the row names are used
 dat <- matrix(0,100,10)
 rownames(dat) <- paste("gene",1:100,sep="")

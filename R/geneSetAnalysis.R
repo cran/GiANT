@@ -53,7 +53,7 @@ geneSetAnalysis <- function(
 
 	adjustmentMethod <- match.arg(adjustmentMethod)
 
-	if(class(analysis)!="gsAnalysis"){
+	if(!inherits(analysis, "gsAnalysis")){
 		stop("Analysis must be of class gsAnalysis.\n
 			Use function 'gsAnalysis' to generate an object of this class.")
 	}

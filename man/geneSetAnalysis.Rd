@@ -95,22 +95,20 @@ Ackermann, M., Strimmer, K. (2009) A general modular framework for gene set enri
 }
 \examples{
 # load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
-# apply predefined analysis for gene set enrichment analysis
-res <- geneSetAnalysis(	
-	# parameters for geneSetAnalysis
-	dat = vantVeer,
-	geneSets = pathways[1],
-	analysis = analysis.averageCorrelation(),
-	adjustmentMethod = "fdr",
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	method = "pearson",
-	numSamples = 10)
+data(exampleData)
+  
+  # apply predefined analysis for gene set enrichment analysis
+  res <- geneSetAnalysis(	
+  	# parameters for geneSetAnalysis
+  	dat = countdata,
+  	geneSets = pathways[1],
+  	analysis = analysis.averageCorrelation(),
+  	adjustmentMethod = "fdr",
+  	# additional parameters for analysis.averageCorrelation
+  	labs = labels,
+  	method = "pearson",
+  	numSamples = 10)
 }
+
 
 %\keyword{}

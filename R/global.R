@@ -43,13 +43,17 @@ global.ancova <- function(
 		geneSet,
 		labs,
 		...){
-	requireNamespace("GlobalAncova")
-
-	res <- do.call("GlobalAncova", c(list(xx = dat, test.genes = geneSet, group = labs), ...))
-
-	return(list(
-		pValue = res$test.result[2],
-		res.all = res))
+	
+	if(requireNamespace("GlobalAncova"))
+	{
+		
+		res <- GlobalAncova::GlobalAncova(xx = dat, test.genes = geneSet, group = labs, ...)
+		return(list(
+			pValue = res$test.result[2],
+			res.all = res))
+	} else {
+		stop("The GlobalAncova-Package is required for the use of the GlobalAncova-Wrapper. Please install via the Bioconductor repository and try again.")
+	}
 }
 
 global.test <- function(

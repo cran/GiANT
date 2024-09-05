@@ -38,23 +38,19 @@ A data frame with one row for each included gene set and the columns "adjustedPV
 }
 \examples{
 # load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
+data(exampleData)
+  # perform gene set analyses for several pathways
+  res <- geneSetAnalysis(
+  	# global parameters
+	  dat = countdata,
+	  geneSets = pathways, 
+	  analysis = analysis.averageCorrelation(), 
+	  # additional parameters for analysis.averageCorrelation
+	  labs = labels,
+	  numSamples = 10)
 
-# perform gene set analyses for several pathways
-res <- geneSetAnalysis(
-	# global parameters
-	dat = vantVeer,
-	geneSets = pathways, 
-	analysis = analysis.averageCorrelation(), 
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	numSamples = 10)
-
-tab <- createSummaryTable(res)
-
+  tab <- createSummaryTable(res)
 }
+
 
 %\keyword{ }

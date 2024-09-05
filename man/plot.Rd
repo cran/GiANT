@@ -13,7 +13,7 @@ For each percentage of original gene set genes, the quantiles of the distributio
 	addMinimalStability = FALSE,
 	...)
 }
-
+\value{No return value, called for creating a plot.}
 \arguments{
 \item{x}{
 	A result of a call to \code{evaluateGeneSetUncertainty} (see also Details). 
@@ -46,24 +46,22 @@ If \code{addMinimalStability} is \code{TRUE}, the lower bound of the stability i
 }
 \examples{
 # load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
+data(exampleData)
 
-res <- evaluateGeneSetUncertainty(
-	# parameters for evaluateGeneSetUncertainty
-	dat = vantVeer,
-	geneSet = pathways[[1]],
-	analysis = analysis.averageCorrelation(),
-	numSamplesUncertainty = 10,
-	N = seq(0.1,0.9, by=0.1),
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	numSamples = 10)
-
-# plot the results for the cell cycle control gene set
-plot(res, addMinimalStability = TRUE)
+  res <- evaluateGeneSetUncertainty(
+  	# parameters for evaluateGeneSetUncertainty
+  	dat = countdata,
+  	geneSet = pathways[[1]],
+  	analysis = analysis.averageCorrelation(),
+  	numSamplesUncertainty = 10,
+  	N = seq(0.1,0.9, by=0.1),
+  	# additional parameters for analysis.averageCorrelation
+  	labs = labels,
+  	numSamples = 10)
+  
+  # plot the results for the cell cycle control gene set
+  plot(res, addMinimalStability = TRUE)
 }
+
 
 %\keyword{}

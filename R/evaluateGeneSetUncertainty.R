@@ -148,7 +148,7 @@ evaluateGeneSetUncertainty <- function(
 
 			allgenesets <- replicate(numSamplesUncertainty, {
 
-					blocksToReplace <- sample(length(genesetBlocks), length(genesetBlocks))
+					blocksToReplace <- sample.int(length(genesetBlocks), length(genesetBlocks))
 					genesToReplace <- unlist(lapply(blocksToReplace, function(i){
 							return(genesetBlocks[i]:(genesetBlocks[i]+min(c((genesetBlockSizes[i]-1), length(geneSet)))))
 						}))

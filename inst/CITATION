@@ -1,8 +1,8 @@
 citHeader("To cite package 'GiANT' in publications use:")
      
-citEntry(entry = "article",
+bibentry(bibtype = "article",
         title = "{GiANT}: Gene set uncertainty in enrichment analysis",
-        author = personList(as.person("Florian Schmid"),
+        author = c(as.person("Florian Schmid"),
                             as.person("Matthias Schmid"),
                             as.person("Christoph M\\\"ussel"),
                             as.person("J. Eric Str\\\"ang"),

@@ -48,19 +48,9 @@ global.test(dat,
 Wrapper functions for global gene set analyses.
 
 \itemize{
-\item{\code{global.overrepresentation}: }
-{
-	This function performs an overrepresentation analysis by rating the overlap of \code{geneSet} and \code{coreSet} with respect to the set of all genes using Fisher's exact test.
-}
-\item{\code{global.ancova}: }
-{
-	This function performs a global gene set enrichment analysis using the global ANCOVA method by Hummel et al. It wraps the \code{\link[GlobalAncova]{GlobalAncova}} function in the \pkg{GlobalAncova} package.
-}
-\item{\code{global.test}: }
-{
-	This function performs a global gene set enrichment analysis using a global test by Goeman et al. It wraps the \code{\link[globaltest]{gt}} function in the \pkg{globaltest} package.
-}
-
+\item \code{global.overrepresentation}:	This function performs an overrepresentation analysis by rating the overlap of \code{geneSet} and \code{coreSet} with respect to the set of all genes using Fisher's exact test.
+\item \code{global.ancova}:	This function performs a global gene set enrichment analysis using the global ANCOVA method by Hummel et al. It wraps the \code{\link[GlobalAncova]{GlobalAncova}} function in the \pkg{GlobalAncova} package.
+\item \code{global.test}: This function performs a global gene set enrichment analysis using a global test by Goeman et al. It wraps the \code{\link[globaltest]{gt}} function in the \pkg{globaltest} package.
 }
 }
 

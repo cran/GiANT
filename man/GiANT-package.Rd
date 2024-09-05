@@ -21,22 +21,13 @@ This package provides an approach for evaluating the fuzziness of a gene set. Th
 
 The package also comprises a generic framework for different types of enrichment analyses (Ackermann and Strimmer). It establishes a customizeable pipeline that typically consists of the following steps:
 \itemize{
-  \item{Calculation of gene-level statistics: }
-  {
-  A gene-level statistic scores the relationship between the measurements for a specific gene and the class labels. Typical measures include correlation coefficients, the t statistic or the fold change between the groups (see \code{\link{gls}} for gene-level statistics included in the package). 
-  }
-  \item{Transformation of gene-level statistic values: }
-  {
-  Optionally, the gene-level statistic values can be postprocessed, e.g. by taking the absolute value or the square for correlation values or by binarizing or ranking values. \if{latex}{\cr}See \code{\link{transformation}} for transformations included in the package.
-  }
-  \item{Calculation of gene set statistics: }
-  {
-    Based on the (possibly transformed) gene-level statistics, the gene set(s) of interest is/are scored. Examples are the median, the mean or the enrichment score of the gene-level statistic values in the gene set(s). See \code{\link{gss}} for gene set statistics included in the package.
-  }
-  \item{Significance assessment: }
-  {
-  To assess the significance of the gene set statistic value(s) with respect to a null distribution, computer-intensive tests are performed. These tests repeatedly sample random label vectors or gene sets and calculate their gene set statistic values. These values can then be compared to the true gene set statistics. See \code{\link{significance}} for significance assessment methods included in the package.
-  }    
+  \item Calculation of gene-level statistics: A gene-level statistic scores the relationship between the measurements for a specific gene and the class labels. Typical measures include correlation coefficients, the t statistic or the fold change between the groups (see \code{\link{gls}} for gene-level statistics included in the package). 
+  
+  \item Transformation of gene-level statistic values: Optionally, the gene-level statistic values can be postprocessed, e.g. by taking the absolute value or the square for correlation values or by binarizing or ranking values. \if{latex}{\cr}See \code{\link{transformation}} for transformations included in the package.
+  
+  \item Calculation of gene set statistics: Based on the (possibly transformed) gene-level statistics, the gene set(s) of interest is/are scored. Examples are the median, the mean or the enrichment score of the gene-level statistic values in the gene set(s). See \code{\link{gss}} for gene set statistics included in the package.
+
+  \item Significance assessment: To assess the significance of the gene set statistic value(s) with respect to a null distribution, computer-intensive tests are performed. These tests repeatedly sample random label vectors or gene sets and calculate their gene set statistic values. These values can then be compared to the true gene set statistics. See \code{\link{significance}} for significance assessment methods included in the package.
 }
 The package represents such analysis pipelines as configuration objects that can be created using the function \code{\link{gsAnalysis}}. For predefined state-of-the-art methods, such as Gene Set Enrichment Analysis (Subramanian et al), Overrepresentation Analysis or Global Ancova (Hummel et al), it provides predefined configurations (see \code{\link{predefinedAnalyses}}).
 
@@ -59,42 +50,39 @@ Hummel, M., Meister, R., Mansmann, U. (2008) Globalancova: exploration and asses
 %\keyword{}
 
 \examples{
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
-##################################
-# Example 1: gene set analysis   #
-##################################
-res <- geneSetAnalysis(  
-  # parameters for geneSetAnalysis
-  dat = vantVeer,
-  geneSets = pathways[1],
-  analysis = analysis.averageCorrelation(),
-  adjustmentMethod = "fdr",
-  # additional parameters for analysis.averageCorrelation
-  labs = phenodata$metastases,
-  method = "pearson",
-  numSamples = 50)
-
-summary(res, mode="table")
-
-####################################
-# Example 2: uncertainty analysis  #
-####################################
-resUncertainty <- evaluateGeneSetUncertainty(  
-  # parameters for evaluateGeneSetUncertainty
-  dat = vantVeer,
-  geneSet = pathways[[3]],
-  analysis = analysis.averageCorrelation(),
-  numSamplesUncertainty = 5,
-  blockSize = 1,
-  k = seq(0.1,0.9,by=0.1),
-  # additional parameters for analysis.averageCorrelation
-  labs = phenodata$metastases,
-  numSamples = 5)
-
-plot(resUncertainty, main = names(pathways[3]))
+\donttest{
+  data(exampleData)
+  ##################################
+  # Example 1: gene set analysis   #
+  ##################################
+  res <- geneSetAnalysis(  
+    # parameters for geneSetAnalysis
+    dat = countdata,
+    geneSets = pathways[1],
+    analysis = analysis.averageCorrelation(),
+    adjustmentMethod = "fdr",
+    # additional parameters for analysis.averageCorrelation
+    labs = labels,
+    method = "pearson",
+    numSamples = 50)
+  
+  summary(res, mode="table")
+  
+  ####################################
+  # Example 2: uncertainty analysis  #
+  ####################################
+  resUncertainty <- evaluateGeneSetUncertainty(  
+    # parameters for evaluateGeneSetUncertainty
+    dat = countdata,
+    geneSet = pathways[[3]],
+    analysis = analysis.averageCorrelation(),
+    numSamplesUncertainty = 5,
+    blockSize = 1,
+    k = seq(0.1,0.9,by=0.1),
+    # additional parameters for analysis.averageCorrelation
+    labs = labels,
+    numSamples = 5)
+  
+  plot(resUncertainty, main = names(pathways[3]))
+}
 }

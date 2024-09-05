@@ -82,22 +82,17 @@ load("./vignetteData.RData")
 @
 
 <<eval=FALSE>>=
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
 
 resGsea <- geneSetAnalysis(
-	labs = phenodata$metastases,
+	labs = labels,
 	method = "pearson",
 	0,
-	dat = vantVeer,
+	dat = countdata,
 	geneSets = pathways,
 	analysis = analysis.gsea(),
 	adjustmentMethod = "fdr",
 	signLevel=0.1)
+
 @
 
 The results of enrichment analyses can be summarized via the \texttt{summary()} function:
@@ -152,7 +147,7 @@ mc <- 2 #number of cpus to use
 cl <- makeCluster(mc) #initialize a cluster
 
 resGsea <- geneSetAnalysis(
-	labs = phenodata$metastases,
+	labs = labels,
 	method = "pearson",
 	numSamples = 1000,
 	dat = vantVeer,
@@ -174,7 +169,7 @@ set.seed(132)
 @
 
 <<eval=FALSE>>=
-stat <- abs(apply(vantVeer,1,cor,y = phenodata$metastases))
+stat <- abs(apply(vantVeer,1,cor,y = labels))
 coreSet <- rownames(vantVeer)[tail(order(stat), 25)]
 
 resOverrep <- geneSetAnalysis(
@@ -222,7 +217,7 @@ For example, the following quantifies the uncertainty of the cell cycle control 
 <<eval=FALSE>>=
 resUncertainty <- evaluateGeneSetUncertainty(
 	#parameters in ...
-	labs = phenodata$metastases,
+	labs = labels,
 	numSamples = 1000,
 	#parameters for evaluateGeneSetUncertainty
 	dat = vantVeer,
@@ -238,7 +233,7 @@ plot(resUncertainty,
 <<eval=FALSE,echo=FALSE,results=hide>>=
 resUncertainty <- evaluateGeneSetUncertainty(
 	#parameters in ...
-	labs = phenodata$metastases,
+	labs = labels,
 	numSamples = 1000,
 	#parameters for evaluateGeneSetUncertainty
 	dat = vantVeer,
@@ -318,7 +313,7 @@ Our new analysis can now be called exactly in the same way as the predefined ana
 
 <<eval=FALSE,results=hide>>=
 myResult <- geneSetAnalysis(
-	labs = phenodata$metastases,
+	labs = labels,
 	method = "pearson",
 	numSamples = 100,
 	dat = vantVeer,

@@ -14,7 +14,7 @@ Prints a summary of a gene set analysis result object.
 		signLevel = object$signLevel,
 		...)
 }
-
+\value{Returns a data.frame with a summary of the produced results such as data set name, p-values, size of the given gene set.}
 \arguments{
 \item{object}{
 	A result object as returned by \code{\link{geneSetAnalysis}}.
@@ -42,26 +42,22 @@ Currently unused
 \code{\link{geneSetAnalysis}}, \code{\link{hist.gsaResult}}, \code{\link{createSummaryTable}}
 }
 \examples{
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
-
-# perform gene set analyses for several pathways
-res <- geneSetAnalysis(
-	# global parameters
-	dat = vantVeer,
-	geneSets = pathways, 
-	analysis = analysis.averageCorrelation(), 
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	numSamples = 10)
-
-#summarize the analyses
-summary(res, mode = "summary")
-
-summary(res, mode = "table", orderBy = "rawPValues")
+data(exampleData)
+  # perform gene set analyses for several pathways
+  res <- geneSetAnalysis(
+  	# global parameters
+  	dat = countdata,
+  	geneSets = pathways, 
+  	analysis = analysis.averageCorrelation(), 
+  	# additional parameters for analysis.averageCorrelation
+  	labs = labels,
+  	numSamples = 10)
+  
+  #summarize the analyses
+  summary(res, mode = "summary")
+  
+  summary(res, mode = "table", orderBy = "rawPValues")
 }
+
 
 %\keyword{ }

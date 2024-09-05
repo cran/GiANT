@@ -6,7 +6,7 @@ hist.gsaResult <- function(x,
 		...){
 	#print("GSA histogram")
 	oldAsk <- par("ask")
-
+	on.exit(par(oldAsk))
 	args <- list(...)
 
 	if(is.null(subset)){
@@ -125,7 +125,6 @@ hist.gsaResult <- function(x,
 				col=c("blue","red"))
 		}
 	}
-	par(ask=oldAsk)
 
 	return(invisible(histObjects))
 }

@@ -65,28 +65,12 @@ gsAnalysis(name,
 The function provides a way of flexibly defining the steps of the gene set analysis pipeline. This pipeline consists of a subset of the following steps, each of which may have specific parameters:
 \itemize{
 
-\item{Gene-level analysis: }{
- A gene-level statistic scores the relationship between the measurements for a specific gene and the class labels. Typical measures include correlation coefficients, the t statistic or the fold change between the groups (see \code{\link{gls}} for gene-level statistics included in the package). 
-  }
+\item Gene-level analysis: A gene-level statistic scores the relationship between the measurements for a specific gene and the class labels. Typical measures include correlation coefficients, the t statistic or the fold change between the groups (see \code{\link{gls}} for gene-level statistics included in the package). 
+\item Transformation of gene-level statistics: Optionally, the gene-level statistic values can be postprocessed, e.g. by taking the absolute value or the square for correlation values or by binarizing or ranking values. See \code{\link{transformation}} for transformations included in the package.
+\item Gene set analysis: Based on the (possibly transformed) gene-level statistics, the gene set(s) of interest is/are scored. Examples are the median, the mean or the enrichment score of the gene-level statistic values in the gene set(s). See \code{\link{gss}} for gene set statistics included in the package.
+\item Significance assessment: To assess the significance of the gene set statistic value(s) with respect to a null distribution, computer-intensive tests are performed. These tests repeatedly sample random label vectors or gene sets and calculate their gene set statistic values. These values can then be compared to the true gene set statistics. See \code{\link{significance}} for significance assessment methods included in the package.
+\item Global analysis: As an alternative to the above pipeline steps, it is possible to define a single, global method that directly calculates an enrichment p-value for a supplied data set and gene set. See \code{\link{global}} for the global analysis tests included in the package.
 
-\item{Transformation of gene-level statistics: }{
-  Optionally, the gene-level statistic values can be postprocessed, e.g. by taking the absolute value or the square for correlation values or by binarizing or ranking values. See \code{\link{transformation}} for transformations included in the package.
-}
-
-\item{Gene set analysis: }
-{
-Based on the (possibly transformed) gene-level statistics, the gene set(s) of interest is/are scored. Examples are the median, the mean or the enrichment score of the gene-level statistic values in the gene set(s). See \code{\link{gss}} for gene set statistics included in the package.
-}
-
-\item{Significance assessment: }
-{
-To assess the significance of the gene set statistic value(s) with respect to a null distribution, computer-intensive tests are performed. These tests repeatedly sample random label vectors or gene sets and calculate their gene set statistic values. These values can then be compared to the true gene set statistics. See \code{\link{significance}} for significance assessment methods included in the package.
-}
-
-\item{Global analysis: }
-{
-As an alternative to the above pipeline steps, it is possible to define a single, global method that directly calculates an enrichment p-value for a supplied data set and gene set. See \code{\link{global}} for the global analysis tests included in the package.
-}
 }
 
 Several state-of-the-art analyses have predefined configuration objects in which the above steps are defined accordingly (see \code{\link{predefinedAnalyses}}).
@@ -99,6 +83,7 @@ An object of class \code{gsAnalysis} with components corresponding to the above 
 \code{\link{predefinedAnalyses}}, \code{\link{geneSetAnalysis}}, \code{\link{evaluateGeneSetUncertainty}}, \code{\link{gls}}, \code{\link{transformation}}, \code{\link{gss}}, \code{\link{global}}, \code{\link{significance}}
 }
 \examples{
+	data(exampleData)
 # defines an analysis that corresponds to gsAna1()
 gsa <- gsAnalysis(
 	name = "averageCorrelation",
@@ -115,22 +100,18 @@ gsa <- gsAnalysis(
 	testAlternative = "greater")
 print(gsa)
 
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
 
-# apply the previously defined analysis
-res <- geneSetAnalysis(
-	# global parameters
-	dat = vantVeer,
-	geneSets = pathways[1], 
-	analysis = gsa, 
-	# parameters for the specific analysis gsAna1
-	labs = phenodata$metastases,
-	numSamples = 10)
-
+  # apply the previously defined analysis
+  res <- geneSetAnalysis(
+  	# global parameters
+  	dat = countdata,
+  	geneSets = pathways[1], 
+  	analysis = gsa, 
+  	# parameters for the specific analysis gsAna1
+  	labs = labels,
+  	numSamples = 10)
 }
+
+
 
 %\keyword{}

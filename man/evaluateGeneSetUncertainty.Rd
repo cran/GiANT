@@ -56,7 +56,7 @@ The uncertainty analysis repeatedly replaces parts of the original gene sets by 
 }
 \value{
 Returns a list (of class \code{uncertaintyResult}) with the following elements:
-\itemize{
+
 \item{uncertainty}{
 	The calculated stability of the original gene set.
 }
@@ -66,19 +66,12 @@ Returns a list (of class \code{uncertaintyResult}) with the following elements:
 \item{uncertaintyEvaluations}{
 	A list with one entry per value in \code{k} containing the following elements: 
 	\itemize{
-	\item{confidenceValues}{
-		Quantiles of \code{gssValues}: signLevel, 0.5, 1-signLevel.
+	\item Quantiles of \code{gssValues}: signLevel, 0.5, 1-signLevel.
+	\item gssValues: A vector of gene set statistic values, one for each randomly sampled gene set.
+	\item uncertainGeneSets: A matrix containing all partially random gene sets.
+	\item k: The percentage of genes in the randomized gene sets taken from the original gene set.
 	}
-	\item{gssValues}{
-		A vector of gene set statistic values, one for each randomly sampled gene set.
-	}
-	\item{uncertainGeneSets}{
-		A matrix containing all partially random gene sets.
-	}
-	\item{k}{
-		The percentage of genes in the randomized gene sets taken from the original gene set.
-	}
-	}
+	
 }
 \item{signLevel}{
 	The significance level used for this analysis.
@@ -87,28 +80,26 @@ Returns a list (of class \code{uncertaintyResult}) with the following elements:
 	Result of \code{geneSetAnalysis} for the original \code{geneSet}.
 }
 }
-}
+
+
 
 \seealso{
 \code{\link{geneSetAnalysis}}, \code{\link{gsAnalysis}}, \code{\link{gls}}, \code{\link{transformation}}, \code{\link{gss}}, \code{\link{plot.uncertaintyResult}}
 }
 \examples{
-# load data
-require(GlobalAncova)
-data(vantVeer)
-data(phenodata)
-data(pathways)
+data(exampleData)
 
-res <- evaluateGeneSetUncertainty(
-	# parameters for evaluateGeneSetUncertainty
-	dat = vantVeer,
-	geneSet = pathways[[1]],
-	analysis = analysis.averageCorrelation(),
-	numSamplesUncertainty = 10,
-	k = seq(0.1,0.9, by=0.1),
-	# additional parameters for analysis.averageCorrelation
-	labs = phenodata$metastases,
-	numSamples = 10)
+  res <- evaluateGeneSetUncertainty(
+  	# parameters for evaluateGeneSetUncertainty
+  	dat = countdata,
+  	geneSet = pathways[[1]],
+  	analysis = analysis.averageCorrelation(),
+  	numSamplesUncertainty = 10,
+  	k = seq(0.1,0.9, by=0.1),
+  	# additional parameters for analysis.averageCorrelation
+  	labs = labels,
+  	numSamples = 10)
 }
+
 
 %\keyword{}

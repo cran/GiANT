@@ -65,21 +65,9 @@ significance.restandardization(
 Standard methods for the significance assessment of a gene set statistic (to be used in an analysis pipeline defined by \code{gsAnalysis}):
 
 \itemize{
-\item{\code{significance.sampling}: }
-{
-This function repeatedly draws random gene sets. Their gene set statistic values form the null distribution.
-}
-
-\item{\code{significance.permutation}: }
-{
-This function repeatedly permutes the labels of the data set. The gene set statistic values for the original gene set on the permuted data set form the null distribution.
-}
-
-\item{\code{significance.restandardization}: }
-{
-This function applies both a gene set sampling and a label permutation. The permutation statistic values are standardized by their mean and standard deviation and then restandardized based on the gene set sampling statistic values. These restandardized values form the null distribution (Efron and Tibshirani).
-}
-
+\item \code{significance.sampling}: This function repeatedly draws random gene sets. Their gene set statistic values form the null distribution.
+\item \code{significance.permutation}: This function repeatedly permutes the labels of the data set. The gene set statistic values for the original gene set on the permuted data set form the null distribution.
+\item \code{significance.restandardization}: This function applies both a gene set sampling and a label permutation. The permutation statistic values are standardized by their mean and standard deviation and then restandardized based on the gene set sampling statistic values. These restandardized values form the null distribution (Efron and Tibshirani).
 }
 }
 \value{

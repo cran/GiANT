@@ -59,45 +59,15 @@ gss.gsz(x, geneSetIndices, w1 = 0.2, w2 = 0.5, preVar = 0, varConstant = 10)
 \details{
 Standard functions for the calculation of gene set statistics (to be used in an analysis pipeline defined by \code{gsAnalysis}):
 \itemize{
-  \item{\code{gss.mean}: }
-  {
-  Calculates the mean of the (transformed) gene-level statistic values for the genes in the set.
-  }
-
-  \item{\code{gss.sum}: }
-  {
-  Calculates the sum of the (transformed) gene-level statistic values for the genes in the set.
-  }
+  \item \code{gss.mean}: Calculates the mean of the (transformed) gene-level statistic values for the genes in the set.
+  \item \code{gss.sum}: Calculates the sum of the (transformed) gene-level statistic values for the genes in the set.
+  \item \code{gss.wilcoxonRankTest}: Calculates a Wilcoxon test comparing the (transformed) gene-level statistic values for the genes in the set versus those of the genes not in the set.
+  \item \code{gss.maxmean}: Calculates the maximum of the means of positive and negative statistic values, weighted by the overall proportion of positive/negative values (e.g. for correlation scores where the sign denotes the direction). Described in Efron and Tibshirani.
+  \item \code{gss.median}: Calculates the median of the (transformed) gene-level statistic values for the genes in the set.
+  \item \code{gss.enrichmentScore}: Calculates the enrichment score of the (transformed) gene-level statistic values for the genes in the set, as described in Subramanian et al.
+  \item \code{gss.fisherExactTest}: Performs Fisher's exact test to check gene sets for overrepresentation in the differential genes. This should be used used in combination with the transformation \if{latex}{\cr}\code{\link[=transformation]{transformation.adjustAndBinarize}}.
+  \item \code{gss.gsz}: Calculates the Gene Set Z-score of the (transformed) gene-level statistic values for the genes in the set. Described in Toronen et al.
   
-  \item{\code{gss.wilcoxonRankTest}: }
-  {
-  Calculates a Wilcoxon test comparing the (transformed) gene-level statistic values for the genes in the set versus those of the genes not in the set.
-  }
-  
-  \item{\code{gss.maxmean}: }
-  {
-  Calculates the maximum of the means of positive and negative statistic values, weighted by the overall proportion of positive/negative values (e.g. for correlation scores where the sign denotes the direction). Described in Efron and Tibshirani.
-  }
-  
-  \item{\code{gss.median}: }
-  {
-  Calculates the median of the (transformed) gene-level statistic values for the genes in the set.
-  }
-  
-  \item{\code{gss.enrichmentScore}: }
-  {
-  Calculates the enrichment score of the (transformed) gene-level statistic values for the genes in the set, as described in Subramanian et al.
-  }
-
-  \item{\code{gss.fisherExactTest}: }
-  {
-  Performs Fisher's exact test to check gene sets for overrepresentation in the differential genes. This should be used used in combination with the transformation \if{latex}{\cr}\code{\link[=transformation]{transformation.adjustAndBinarize}}.
-  }
-
-  \item{\code{gss.gsz}: }
-  {
-  Calculates the Gene Set Z-score of the (transformed) gene-level statistic values for the genes in the set. Described in Toronen et al.
-  }
 
 }
 }
